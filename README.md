@@ -25,6 +25,7 @@ Tecnologias, frameworks e bibliotecas que foram utilizadas no desenvolvimento do
 * ejs (Template engine)
 * Bootstrap
 * JWT
+* MySQL
     ...
 
 ## Licença
