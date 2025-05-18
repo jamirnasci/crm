@@ -26,11 +26,6 @@ Tecnologias, frameworks e bibliotecas que foram utilizadas no desenvolvimento do
 * Bootstrap
 * JWT
 * MySQL
-    ...
-
-## Licença
-
-[Adicione aqui a licença sob a qual o projeto está distribuído. Por exemplo, MIT License, Apache 2.0, etc.]
 
 ## Autor
 
