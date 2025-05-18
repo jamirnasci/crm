@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <%- include('libs.ejs') %>
+</head>
+
+<body>
+    <%- include('component/header.ejs') %>
+        <ul class="bg-light bg-gradient nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab1" type="button"
+                    role="tab">Cadastrar Cliente</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab2" type="button" role="tab">Para
+                    Hoje</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab3" type="button" role="tab">Buscar
+                    Cliente</button>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="tab1" role="tabpanel">
+                <div class="d-flex flex-column justify-content-center align-items-center">
+
+                    <h2>Formulário de Cadastro</h2>
+                    <form class="p-3 shadow rounded w-50 d-flex flex-column align-items-center justify-content-center"
+                        action="/cliente/create" method="post">
+                        <div class="w-100">
+                            <div class="d-flex">
+                                <div class="m-1">
+                                    <label for="nome">Nome:</label><br>
+                                    <input class="form-control" type="text" name="nome" id="nome">
+                                </div>
+                                <div class="m-1">
+                                    <label for="sobrenome">Sobrenome:</label><br>
+                                    <input class="form-control" type="text" name="sobrenome" id="sobrenome">
+                                </div>
+                                <div class="m-1">
+                                    <label for="cpf">CPF:</label><br>
+                                    <input class="form-control" class="w-100" type="text" name="cpf" id="cpf">
+                                </div>
+                            </div>
+                            <div class="d-flex">
+                                <div class="m-1">
+                                    <label for="email">Email</label><br>
+                                    <input class="form-control" class="w-100" type="email" name="email" id="email">
+                                </div>
+                                <div class="m-1">
+                                    <label for="telefone">Telefone</label><br>
+                                    <input class="form-control" type="text" name="telefone" id="telefone">
+                                </div>
+                            </div>
+                            <div class="m-1">
+                                <label for="produto_idproduto">Produto</label><br>
+                                <select class="form-select" type="text" name="produto_idproduto" id="produto_idproduto">
+                                    <% produtos.forEach((item)=>{ %>
+                                        <option value="<%= item.idproduto %>">
+                                            <%= item.nome %>
+                                        </option>
+                                        <% }) %>
+                                </select>
+                            </div>
+                            <div class="d-flex">
+                                <div class="m-1">
+                                    <label for="renda">Renda</label><br>
+                                    <input class="form-control" type="number" name="renda" id="renda">
+                                </div>
+                                <div class="m-1">
+                                    <label for="status">Status</label><br>
+                                    <select class="form-select" type="text" name="status" id="status">
+                                        <option value="frio">Frio</option>
+                                        <option value="morno">Morno</option>
+                                        <option value="quente">Quente</option>
+                                    </select>
+                                </div>
+                                <div class="m-1">
+                                    <label for="prox_interacao">Próxima Interação</label><br>
+                                    <input class="form-control" type="date" name="prox_interacao" id="prox_interacao">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-100">
+                            <div class="d-flex w-100">
+
+                            </div>
+                            <label for="descricao">Descrição</label>
+                            <textarea class="w-100 form-control" type="text" name="descricao" id="descricao"></textarea>
+                        </div>
+                        <input class="btn btn-primary m-2 w-25" type="submit" value="Cadastrar">
+                    </form>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="tab2" role="tabpanel">
+                <div class="d-flex w-100 align-items-center justify-content-center">
+                    <div class="d-flex flex-column w-75">
+                        <h2>Agendados para hoje</h2>
+                        <% if(clientes.length==0){ %>
+                            <strong class="text-center">Nada agendado para hoje</strong>
+                            <% } else{ %>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Nome</th>
+                                            <th scope="col">Sobrenome</th>
+                                            <th scope="col">CPF</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Ação</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% clientes.forEach((item)=>{ %>
+                                            <tr>
+                                                <th scope="row">1</th>
+                                                <td>
+                                                    <%= item.nome %>
+                                                </td>
+                                                <td>
+                                                    <%= item.sobrenome %>
+                                                </td>
+                                                <td>
+                                                    <%= item.cpf %>
+                                                </td>
+                                                <td>
+                                                    <%= item.status %>
+                                                </td>
+                                                <td><a class="btn btn-success w-100"
+                                                        href="/cliente/interacao/<%= item.idcliente %>">Abrir</a></td>
+                                            </tr>
+                                            <% }) %>
+                                    </tbody>
+                                    <% } %>
+                                </table>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="tab3" role="tabpanel">
+                <div class="d-flex w-100 align-items-center justify-content-center">
+                    <div class="d-flex flex-column w-75">
+                        <strong>Buscar cliente</strong>
+                        <div class="d-flex">
+                            <input class="form-control" placeholder="Nome..." type="text" name="nome_procurar"
+                                id="nome_procurar">
+                            <input class="btn btn-secondary" id="findByNomeBtn" type="button" value="Procurar">
+                        </div>
+                        <h2>Clientes encontrados</h2>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Nome</th>
+                                    <th scope="col">Sobrenome</th>
+                                    <th scope="col">CPF</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Ação</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="updateModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <h2 class="text-center">Atualizar Cliente</h2>
+                    <div class="p-3 shadow rounded w-100 d-flex flex-column align-items-center justify-content-center">
+                        <div class="w-100">
+                            <div class="d-flex">
+                                <div class="m-1">
+                                    <label for="dialog-nome">Nome:</label><br>
+                                    <input class="form-control" type="text" name="dialog-nome" id="dialog-nome">
+                                </div>
+                                <div class="m-1">
+                                    <label for="dialog-sobrenome">Sobrenome:</label><br>
+                                    <input class="form-control" type="text" name="dialog-sobrenome"
+                                        id="dialog-sobrenome">
+                                </div>
+                                <div class="m-1">
+                                    <label for="dialog-cpf">CPF:</label><br>
+                                    <input class="form-control" class="w-100" type="text" name="dialog-cpf"
+                                        id="dialog-cpf">
+                                </div>
+                            </div>
+                            <div class="d-flex">
+                                <div class="m-1">
+                                    <label for="dialog-email">Email</label><br>
+                                    <input class="form-control" class="w-100" type="email" name="dialog-email"
+                                        id="dialog-email">
+                                </div>
+                                <div class="m-1">
+                                    <label for="dialog-telefone">Telefone</label><br>
+                                    <input class="form-control" type="text" name="dialog-telefone" id="dialog-telefone">
+                                </div>
+                            </div>
+                            <div class="m-1">
+                                <label for="produto_idproduto">Produto</label><br>
+                                <select class="form-select" type="text" name="dialog-produto_idproduto"
+                                    id="dialog-produto_idproduto">
+                                    <% produtos.forEach((item)=>{ %>
+                                        <option value="<%= item.idproduto %>">
+                                            <%= item.nome %>
+                                        </option>
+                                        <% }) %>
+                                </select>
+                            </div>
+                            <div class="d-flex">
+                                <div class="m-1">
+                                    <label for="dialog-renda">Renda</label><br>
+                                    <input class="form-control" type="number" name="dialog-renda" id="dialog-renda">
+                                </div>
+                                <div class="m-1">
+                                    <label for="dialog-status">Status</label><br>
+                                    <select class="form-select" type="text" name="dialog-status" id="dialog-status">
+                                        <option value="frio">Frio</option>
+                                        <option value="morno">Morno</option>
+                                        <option value="quente">Quente</option>
+                                    </select>
+                                </div>
+                                <div class="m-1">
+                                    <label for="dialog-prox_interacao">Próxima Interação</label><br>
+                                    <input class="form-control" type="date" name="dialog-prox_interacao"
+                                        id="dialog-prox_interacao">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-100">
+                            <label for="dialog-descricao">Descrição</label>
+                            <textarea class="w-100 form-control" type="text" name="dialog-descricao"
+                                id="dialog-descricao"></textarea>
+                        </div>
+                        <input class="btn btn-primary m-2 w-25" idcliente="" id="updateBtn" type="button"
+                            value="Atualizar">
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+<script src="/js/client.js"></script>
+
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <%- include('libs.ejs') %>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .chart-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+    </style>
+</head>
+<body class="">
+    <%- include('component/header.ejs') %>
+    <div class="container w-100 d-flex flex-column justify-content-center align-items-center">
+        <h2>Dashboard</h2>
+        <div class="mt-2 d-flex align-items-center p-1 rounded shadow">
+            <div class="chart-container">
+                <canvas id="barChart" height="250" width="300"></canvas>
+            </div>
+            <div class="chart-container">
+                <canvas id="lineChart" height="250" width="300"></canvas>
+            </div>
+            <div class="chart-container">
+                <canvas id="pieChart" height="250" width="300"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/charts.js"></script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produtos</title>
+    <%- include('libs.ejs') %>
+</head>
+
+<body>
+    <%- include('component/header.ejs') %>
+
+        <ul class="bg-light bg-gradient nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab1" type="button"
+                    role="tab">Inserir Produto</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab2" type="button" role="tab">Buscar
+                    Produto</button>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="tab1" role="tabpanel">
+                <div class="d-flex flex-column justify-content-center align-items-center">
+
+                    <h1>Formulário de Cadastro</h1>
+                    <form class="p-3 shadow rounded w-50 d-flex flex-column align-items-center justify-content-center"
+                        action="/produtos/insert" method="post">
+                        <div class="w-100">
+                            <div class="d-flex">
+                                <div class="m-1">
+                                    <label for="nome">Nome:</label><br>
+                                    <input class="form-control" type="text" name="nome" id="nome">
+                                </div>
+                                <div class="m-1">
+                                    <label for="marca">Marca:</label><br>
+                                    <input class="form-control" type="text" name="marca" id="marca">
+                                </div>
+                                <div class="m-1">
+                                    <label for="preco">Preço: (R$)</label><br>
+                                    <input class="form-control" type="number" name="preco" id="preco">
+                                </div>
+                            </div>
+                            <div class="m-1">
+                                <label for="img_url">URL da Imagem: </label><br>
+                                <input class="form-control" class="w-100" type="text" name="img_url" id="img_url">
+                            </div>
+                            <div class="d-flex">
+                                <div class="m-1">
+                                    <label for="telefone">Telefone</label><br>
+                                    <input class="form-control" type="tel" name="telefone" id="telefone">
+                                </div>
+                                <div class="m-1">
+                                    <label for="quantidade">Quantidade</label><br>
+                                    <input class="form-control" type="number" name="quantidade" id="quantidade">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-100">
+                            <div class="d-flex w-100">
+                                <div class="m-1 w-100">
+                                    <label for="endereco">Endereço: </label><br>
+                                    <input class="form-control" type="text" name="endereco" id="endereco">
+                                </div>
+                            </div>
+                            <div class="d-flex w-100">
+                                <div class="m-1 w-100">
+                                    <label for="descricao">Descrição: </label><br>
+                                    <input class="form-control" type="text" name="descricao" id="descricao">
+                                </div>
+                            </div>
+                        </div>
+                        <input class="btn btn-primary m-2 w-25" type="submit" value="Cadastrar">
+                    </form>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="tab2" role="tabpanel">
+                <div class="d-flex flex-column w-100 align-items-center justify-content-center">
+                    <div class="d-flex flex-column w-75">
+                        <h2>Buscar Produto</h2>
+                        <div class="d-flex">
+                            <input class="form-control" type="text" name="produto_procurar" id="produto_procurar">
+                            <input class="btn btn-secondary" id="procurar_btn" type="button" value="Procurar">
+                        </div>
+                    </div>
+                    <strong>Produtos encontrados</strong>
+                    <table class="table w-75">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Nome</th>
+                                <th scope="col">Marca</th>
+                                <th scope="col">Preço</th>
+                                <th scope="col">Quantidade</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--modal-->
+        <div class="modal fade" id="updateModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <h2 class="text-center">Atualizar Produto</h2>
+                    <div class="p-3 shadow rounded w-100 d-flex flex-column align-items-center justify-content-center">
+                        <div class="w-100">
+                            <div class="d-flex">
+                                <div class="m-1">
+                                    <label for="dialog-nome">Nome:</label><br>
+                                    <input class="form-control" type="text" name="dialog-nome" id="dialog-nome">
+                                </div>
+                                <div class="m-1">
+                                    <label for="dialog-marca">Marca:</label><br>
+                                    <input class="form-control" type="text" name="dialog-marca" id="dialog-marca">
+                                </div>
+                                <div class="m-1">
+                                    <label for="dialog-preco">Preço: (R$)</label><br>
+                                    <input class="form-control" type="number" name="dialog-preco" id="dialog-preco">
+                                </div>
+                            </div>
+                            <div class="m-1">
+                                <label for="dialog-img_url">URL da Imagem: </label><br>
+                                <input class="form-control" class="w-100" type="text" name="dialog-img_url" id="dialog-img_url">
+                            </div>
+                            <div class="d-flex">
+                                <div class="m-1">
+                                    <label for="dialog-quantidade">Quantidade</label><br>
+                                    <input class="form-control" type="number" name="dialog-quantidade" id="dialog-quantidade">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-100">
+                            <div class="d-flex w-100">
+                                <div class="m-1 w-100">
+                                    <label for="dialog-descricao">Descrição: </label><br>
+                                    <input class="form-control" type="text" name="dialog-descricao" id="dialog-descricao">
+                                </div>
+                            </div>
+                        </div>
+                        <input class="btn btn-primary m-2 w-25" idproduct="" type="button" id="updateBtn" value="Atualizar">
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+<script src="/js/products.js"></script>
+
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interações com cliente</title>
+    <%- include('libs.ejs') %>
+</head>
+<body>
+    <%- include('component/header.ejs') %>
+    <div class="container w-100 d-flex">
+        <div class="w-75 d-flex flex-column align-items-left justify-content-center">
+            <strong><%= cliente.nome %> <%= cliente.sobrenome %></strong>
+            <div class="d-flex">
+                <strong>CPF:</strong>
+                <div><%= cliente.cpf %></div>
+            </div>
+            <div class="d-flex">
+                <strong>E-mail:</strong>
+                <div><%= cliente.email %></div>
+            </div>
+            <div class="d-flex">
+                <strong>Telefone:</strong>
+                <div><%= cliente.telefone %></div>
+            </div>
+            <div class="d-flex">
+                <strong>Renda:</strong>
+                <div>R$ <%= parseFloat(cliente.renda).toFixed(2) %></div>
+            </div>
+            <div class="d-flex">
+                <strong>Status:</strong>
+                <div><%= cliente.status %></div>
+            </div>
+            <div class="d-flex">
+                <strong>Criado em:</strong>
+                <div><%= cliente.criacao %></div>
+            </div>
+            <strong>descricao:</strong>
+            <div><%= cliente.descricao %></div>
+            <form class="d-flex align-items-center flex-column w-50" action="/cliente/interacao/<%= cliente.idcliente %>" method="post">
+                <label for="prox_interacao">Data do próximo contato</label>
+                <input class="form-control" type="date" name="prox_interacao" id="prox_interacao">
+                <label for="obs">Observações para próxima interação:</label>
+                <textarea class="form-control" name="descricao" id="descricao" required></textarea>
+                <input class=" mt-1 btn btn-primary w-25" type="submit" value="Enviar">
+            </form>
+        </div>
+        <div class="w-25">
+            <h2>Interações</h2>
+        <div>
+            <% historico.forEach((item)=>{ %>
+                <div class="rounded">
+                    <div class="bg-primary p-1">
+                        <strong class="text-light"><%= item.data %></strong>
+                    </div>
+                    <p class="bg-secondary text-light p-1">
+                        <%= item.descricao %>
+                    </p>
+                </div>   
+                <% }) %>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
