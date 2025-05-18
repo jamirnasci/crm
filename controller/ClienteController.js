@@ -59,7 +59,7 @@ const procurarClientes = async (req, res) => {
   }
 };
 
-// Deleta cliente
+// Deleta cliente, ainda nao implementado
 const deleteCliente = async (req, res) => {
   try {
     await Cliente.destroy({ where: { idcliente: req.params.id } });
